@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Css Variables</title>
+</head>
+<body>
+    <h2>Update Css Variables With <span class="hl">Js</span></h2>
+    <div class="controles">
+        <label for="spacing">spacing</label>
+        <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+
+        <label for="blur">blur</label>
+        <input id="blur" type="range" name="blur" min="10" max="25" value="00" data-sizing="px">
+
+        <label for="base">Base Color</label>
+        <input id="base" type="color" name="base" value="#ffc600">
+
+    </div>
+    <img src="../Css Variables/cat-06.jpg">
+
+    <style>
+        :root {
+            --base : #ffc600;
+            --spacing : 10px;
+            --blur : 2px
+        }
+        img{
+            padding: var(--spacing);
+            background: var(--base);
+            filter: blur(var(--blur));
+        }
+        .hl{
+            color: var(--base);
+        }
+        body{
+            text-align: center;
+            background: #193549;
+            color: white;
+            font-family: 'helvetica neue', sans-serif;
+            font-weight: 100;
+            font-size: 50px;
+        }
+        .controles{
+            margin-bottom: 50px;
+        }
+        input{
+            width: 100px;
+        }
+    </style>
+    <script>
+        const inputs = document.querySelectorAll('.controles input');
+
+        function handelUpdate() {
+            const siffix = this.dataset.sizing || '';
+            document.documentElement.style.setProperty(`--${this.name}`, this.value + siffix);
+        }
+
+        inputs.forEach(input => input.addEventListener('change', handelUpdate));
+        inputs.forEach(input => input.addEventListener('mousemove', handelUpdate));
+    </script>
+</body>
+</html>
